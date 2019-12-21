@@ -1,18 +1,25 @@
 package net.hassannazar.fruit.model;
 
 import net.hassannazar.application.model.BaseEntity;
+import net.hassannazar.fruit.model.read.FruitRO;
 
 import javax.persistence.Entity;
-import java.time.LocalDateTime;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Fruit extends BaseEntity {
+
     private String name;
     private String color;
     private boolean ripe;
 
-    public Fruit (String name, String color, boolean ripe, String modifier) {
-        super(LocalDateTime.now(), modifier);
+    public Fruit () {
+    }
+
+    public Fruit (String name, String color, boolean ripe) {
+        super();
         this.name = name;
         this.color = color;
         this.ripe = ripe;
@@ -40,5 +47,18 @@ public class Fruit extends BaseEntity {
 
     public void setRipe (boolean ripe) {
         this.ripe = ripe;
+    }
+
+    // Utility methods
+    public FruitRO toReadObject() {
+        var fruitRO = new FruitRO();
+
+        // convert
+        fruitRO.id = this.getId();
+        fruitRO.name = this.getName();
+        fruitRO.color = this.getColor();
+        fruitRO.ripe = this.isRipe();
+
+        return fruitRO;
     }
 }

@@ -1,20 +1,29 @@
 package net.hassannazar.application.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
 
+@MappedSuperclass
 public class BaseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Past
     private LocalDateTime created;
+    @PastOrPresent
     private LocalDateTime dateModified;
+    @NotEmpty
     private String modifier;
 
-    public BaseEntity (LocalDateTime dateModified, String modifier) {
+    public BaseEntity () {
         this.created = LocalDateTime.now();
-        this.dateModified = dateModified;
-        this.modifier = modifier;
     }
 
     public long getId () {
@@ -48,4 +57,5 @@ public class BaseEntity {
     public void setModifier (String modifier) {
         this.modifier = modifier;
     }
+
 }
