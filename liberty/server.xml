@@ -15,7 +15,11 @@
 
     <dataSource id="h2test" jndiName="jdbc/h2test">
         <jdbcDriver libraryRef="H2JDBCLib"/>
-        <properties URL="jdbc:h2:mem:testdb;MODE=MSSQLServer"/>
+        <properties
+                URL="jdbc:h2:tcp://localhost/~/testdb;MODE=MSSQLServer"
+                user="sa"
+        />
+
     </dataSource>
 
     <!-- Automatically expand WAR files and EAR files -->
