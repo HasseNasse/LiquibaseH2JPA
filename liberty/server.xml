@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<server description="${env.SERVER_DESC}">
+
+    <!-- Enable features -->
+    <featureManager>
+        <feature>microProfile-3.2</feature>
+        <feature>jakartaee-8.0</feature>
+    </featureManager>
+
+    <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="${HTTP_PORT}" httpsPort="${HTTPS_PORT}" />
+
+    <library id="H2JDBCLib">
+        <fileset dir="${server.config.dir}/resources/"/>
+    </library>
+
+    <dataSource id="h2test" jndiName="jdbc/h2test">
+        <jdbcDriver libraryRef="H2JDBCLib"/>
+        <properties URL="jdbc:h2:mem:testdb;MODE=MSSQLServer"/>
+    </dataSource>
+
+    <!-- Automatically expand WAR files and EAR files -->
+    <applicationManager autoExpand="true" />
+    <applicationMonitor dropins="dropins" dropinsEnabled="true" pollingRate="500ms" updateTrigger="polled" />
+</server>
