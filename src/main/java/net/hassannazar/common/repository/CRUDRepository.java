@@ -12,7 +12,7 @@ public interface CRUDRepository<T extends BaseEntity> {
 
     List<T> readAll (final int offset, final int limit);
 
-    T update(T t);
+    long update (T t);
 
     void delete (final long id);
 

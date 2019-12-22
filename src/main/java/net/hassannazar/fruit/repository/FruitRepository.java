@@ -1,5 +1,6 @@
 package net.hassannazar.fruit.repository;
 
+import net.hassannazar.common.exception.NoSuchEntityException;
 import net.hassannazar.common.repository.CRUDRepository;
 import net.hassannazar.fruit.model.Fruit;
 
@@ -22,7 +23,7 @@ public class FruitRepository implements CRUDRepository<Fruit> {
 
     @Override
     @Transactional
-    public long create (Fruit fruit) {
+    public long create (final Fruit fruit) {
         // Set modified date == created for new entities
         fruit.setDateModified(fruit.getCreated());
         fruit.setModifier(requestContext.getRemoteAddr());
@@ -37,12 +38,12 @@ public class FruitRepository implements CRUDRepository<Fruit> {
     }
 
     @Override
-    public Fruit read (long id) {
+    public Fruit read (final long id) {
         return entityManager.find(Fruit.class, id);
     }
 
     @Override
-    public List<Fruit> readAll (int offset, int limit) {
+    public List<Fruit> readAll (final int offset, final int limit) {
         /// CriteriaBuilder interface is the main gateway into the Criteria API,
         /// acting as a factory for the various objects that link together to form
         /// a query definition.
@@ -60,12 +61,18 @@ public class FruitRepository implements CRUDRepository<Fruit> {
     }
 
     @Override
-    public Fruit update (Fruit fruit) {
-        return null;
+    @Transactional
+    public long update (final Fruit fruit) {
+        final var updated = entityManager.merge(fruit);
+        return updated.getId();
     }
 
     @Override
-    public void delete (long id) {
-
+    @Transactional
+    public void delete (final long id) {
+        final var entity = entityManager.find(Fruit.class, id);
+        if (entity == null)
+            throw new NoSuchEntityException("No such entity existant");
+        entityManager.remove(entity);
     }
 }

@@ -8,9 +8,11 @@ import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.annotation.Resource;
 import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
@@ -20,6 +22,10 @@ public class LiquibaseUpdater {
     @Resource(lookup = "jdbc/h2test")
     DataSource dataSource;
 
+    @Inject
+    @ConfigProperty(name = "liquibase.should.run.update")
+    private boolean shouldUpdate;
+
     /**
      * Performs a liquibase update by looking at the db.changelog-master.xml
      * file.
@@ -28,6 +34,11 @@ public class LiquibaseUpdater {
      * @throws LiquibaseException if db-impl or update fails.
      */
     public void update () throws SQLException, LiquibaseException {
+        if (!shouldUpdate) {
+            System.out.println("Skipping liquibase update due to property  ::liquibase.should.run.update:: == false");
+            return;
+        }
+
         // Get JDBC connection
         final var con = dataSource.getConnection();
         final var jdbcCon = new JdbcConnection(con);

@@ -10,6 +10,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,5 +69,35 @@ public class FruitController {
         final var fruitEntity = new Fruit(fruit.name, fruit.color, fruit.ripe);
 
         return repository.create(fruitEntity);
+    }
+
+    /**
+     * Delete a persisted fruit.
+     *
+     * @param id
+     */
+    public void deleteFruit (final long id) {
+        repository.delete(id);
+    }
+
+    /**
+     * Modifies an existing fruit.
+     *
+     * @param fruit read-object to modify a fruit
+     */
+    public long modifyFruit (final FruitRO fruit) {
+        // Get persisted fruit
+        final var persistedFruit = repository.read(fruit.id);
+        if (persistedFruit == null)
+            return -1L;
+
+        // Add new fields
+        persistedFruit.setColor(fruit.color);
+        persistedFruit.setName(fruit.name);
+        persistedFruit.setRipe(fruit.ripe);
+        persistedFruit.setDateModified(LocalDateTime.now());
+
+        // Update database entry
+        return repository.update(persistedFruit);
     }
 }
