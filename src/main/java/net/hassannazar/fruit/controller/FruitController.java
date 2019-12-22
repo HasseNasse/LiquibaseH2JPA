@@ -23,10 +23,9 @@ public class FruitController {
     private FruitRepository repository;
 
     /**
-     *
      * @param id
      */
-    public FruitRO getFruit (long id) {
+    public FruitRO getFruit (final long id) {
         final var fruitEntity = repository.read(id);
         if (fruitEntity == null)
             throw new NoSuchEntityException("No such fruit entity");
@@ -57,7 +56,7 @@ public class FruitController {
      * @return id of the newly created fruit
      */
     @Transactional
-    public long createFruit (FruitRO fruit) {
+    public long createFruit (final FruitRO fruit) {
         // Check if fruit entity not already exist
         if (fruit.id != null) {
             final var entity = repository.read(fruit.id);
@@ -66,7 +65,7 @@ public class FruitController {
         }
 
         // Create a new persistable entity
-        var fruitEntity = new Fruit(fruit.name, fruit.color, fruit.ripe);
+        final var fruitEntity = new Fruit(fruit.name, fruit.color, fruit.ripe);
 
         return repository.create(fruitEntity);
     }

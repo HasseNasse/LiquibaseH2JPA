@@ -2,6 +2,7 @@ package net.hassannazar.fruit.model;
 
 import net.hassannazar.common.model.BaseEntity;
 import net.hassannazar.fruit.model.read.FruitRO;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,7 +19,7 @@ public class Fruit extends BaseEntity {
     public Fruit () {
     }
 
-    public Fruit (String name, FruitColor color, boolean ripe) {
+    public Fruit (final String name, final FruitColor color, final boolean ripe) {
         super();
         this.name = name;
         this.color = color;
@@ -29,7 +30,7 @@ public class Fruit extends BaseEntity {
         return name;
     }
 
-    public void setName (String name) {
+    public void setName (final String name) {
         this.name = name;
     }
 
@@ -37,7 +38,7 @@ public class Fruit extends BaseEntity {
         return color;
     }
 
-    public void setColor (FruitColor color) {
+    public void setColor (final FruitColor color) {
         this.color = color;
     }
 
@@ -45,19 +46,19 @@ public class Fruit extends BaseEntity {
         return ripe;
     }
 
-    public void setRipe (boolean ripe) {
+    public void setRipe (final boolean ripe) {
         this.ripe = ripe;
     }
 
     // Utility methods
     public FruitRO toReadObject() {
-        var fruitRO = new FruitRO();
+        final var fruitRO = new FruitRO();
 
         // convert
-        fruitRO.id = this.getId();
-        fruitRO.name = this.getName();
-        fruitRO.color = this.getColor();
-        fruitRO.ripe = this.isRipe();
+        fruitRO.id = getId();
+        fruitRO.name = getName();
+        fruitRO.color = getColor();
+        fruitRO.ripe = isRipe();
 
         return fruitRO;
     }

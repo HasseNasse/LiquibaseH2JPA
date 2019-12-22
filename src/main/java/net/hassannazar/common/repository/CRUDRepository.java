@@ -1,6 +1,7 @@
 package net.hassannazar.common.repository;
 
 import net.hassannazar.common.model.BaseEntity;
+
 import java.util.List;
 
 public interface CRUDRepository<T extends BaseEntity> {

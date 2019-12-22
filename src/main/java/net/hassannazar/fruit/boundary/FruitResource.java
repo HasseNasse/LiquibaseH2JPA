@@ -1,16 +1,16 @@
 package net.hassannazar.fruit.boundary;
 
+import net.hassannazar.fruit.controller.FruitController;
+import net.hassannazar.fruit.model.read.FruitRO;
+import org.eclipse.microprofile.metrics.annotation.Timed;
+
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
-import javax.inject.Inject;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
-import net.hassannazar.fruit.controller.FruitController;
-import net.hassannazar.fruit.model.read.FruitRO;
-import org.eclipse.microprofile.metrics.annotation.Timed;
 
 /**
  * @author hassannazar.net
@@ -29,7 +29,7 @@ public class FruitResource {
 
     @GET
     @Path("{id}")
-    public Response fruit(@PathParam("id") long id) {
+    public Response fruit (@PathParam("id") final long id) {
         final var fruit = controller.getFruit(id);
         return Response.ok(fruit).build();
     }
@@ -46,11 +46,11 @@ public class FruitResource {
     }
 
     @POST
-    public Response postFruit(@Valid FruitRO fruit) {
+    public Response postFruit (@Valid final FruitRO fruit) {
         final var id = controller.createFruit(fruit);
 
         // Create response URI
-        var uriBuilder = uriInfo.getAbsolutePathBuilder();
+        final var uriBuilder = uriInfo.getAbsolutePathBuilder();
         uriBuilder.path(Long.toString(id));
 
         return Response.created(uriBuilder.build())
@@ -58,7 +58,7 @@ public class FruitResource {
     }
 
     @PUT
-    public Response putFruit(@Valid FruitRO fruit) {
+    public Response putFruit (@Valid final FruitRO fruit) {
         throw new WebApplicationException("Not yet implemented");
     }
 
