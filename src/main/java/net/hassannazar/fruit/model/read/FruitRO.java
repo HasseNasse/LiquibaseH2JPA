@@ -1,6 +1,7 @@
 package net.hassannazar.fruit.model.read;
 
-import net.hassannazar.application.model.read.ReadObject;
+import net.hassannazar.common.model.read.ReadObject;
+import net.hassannazar.fruit.model.FruitColor;
 
 import javax.json.bind.annotation.JsonbPropertyOrder;
 import javax.json.bind.config.PropertyOrderStrategy;
@@ -15,9 +16,8 @@ public class FruitRO extends ReadObject {
     @Size(min = 3, max = 25)
     public String name;
 
-    @NotEmpty
-    @Size(min = 3, max = 25)
-    public String color;
+    @NotNull
+    public FruitColor color;
 
     @NotNull
     public boolean ripe;

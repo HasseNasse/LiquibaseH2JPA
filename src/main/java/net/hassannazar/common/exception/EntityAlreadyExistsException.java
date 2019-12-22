@@ -1,4 +1,4 @@
-package net.hassannazar.application.exception;
+package net.hassannazar.common.exception;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;

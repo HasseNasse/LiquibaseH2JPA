@@ -1,4 +1,4 @@
-package net.hassannazar.application.model.read;
+package net.hassannazar.common.model.read;
 
 public class ReadObject {
 

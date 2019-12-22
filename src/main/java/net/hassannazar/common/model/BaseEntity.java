@@ -1,4 +1,4 @@
-package net.hassannazar.application.model;
+package net.hassannazar.common.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,10 +15,13 @@ public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Past
     private LocalDateTime created;
+
     @PastOrPresent
     private LocalDateTime dateModified;
+
     @NotEmpty
     private String modifier;
 

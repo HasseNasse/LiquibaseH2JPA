@@ -1,6 +1,8 @@
 package net.hassannazar.fruit.boundary;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.ws.rs.*;
 import javax.inject.Inject;
 import javax.ws.rs.core.Context;

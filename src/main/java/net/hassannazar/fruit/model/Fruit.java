@@ -1,24 +1,24 @@
 package net.hassannazar.fruit.model;
 
-import net.hassannazar.application.model.BaseEntity;
+import net.hassannazar.common.model.BaseEntity;
 import net.hassannazar.fruit.model.read.FruitRO;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 
 @Entity
 public class Fruit extends BaseEntity {
 
     private String name;
-    private String color;
+    @Enumerated(EnumType.STRING)
+    private FruitColor color;
     private boolean ripe;
 
     public Fruit () {
     }
 
-    public Fruit (String name, String color, boolean ripe) {
+    public Fruit (String name, FruitColor color, boolean ripe) {
         super();
         this.name = name;
         this.color = color;
@@ -33,11 +33,11 @@ public class Fruit extends BaseEntity {
         this.name = name;
     }
 
-    public String getColor () {
+    public FruitColor getColor () {
         return color;
     }
 
-    public void setColor (String color) {
+    public void setColor (FruitColor color) {
         this.color = color;
     }
 
