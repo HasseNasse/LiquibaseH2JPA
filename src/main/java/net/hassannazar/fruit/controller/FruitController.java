@@ -41,9 +41,19 @@ public class FruitController {
      * @return list of fruits
      */
     public List<FruitRO> getAllFruits () {
+        /// CriteriaBuilder interface is the main gateway into the Criteria API,
+        /// acting as a factory for the various objects that link together to form
+        /// a query definition.
         final var criteriaBuilder = em.getCriteriaBuilder();
+        /// CriteriaQuery object forms the shell of the query definition and generally 
+        /// contains the methods that match up with the JP QL query clauses.
         final var criteriaQuery = criteriaBuilder.createQuery(Fruit.class);
+        /// The first step is to establish the root of the query by invoking from() to
+        /// get back a Root object. This is equivalent to declaring the identification
+        /// variable e in the JP QL example and the Root object will form the basis for
+        /// path expressions in the rest of the query.
         final var all = criteriaQuery.select(criteriaQuery.from(Fruit.class));
+        // execute Criteria Query
         final var allQuery = em.createQuery(all);
 
         // Get all entities and prepare read-objects
